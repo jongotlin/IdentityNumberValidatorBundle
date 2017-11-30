@@ -1,0 +1,24 @@
+services:
+    jgi.personal_id_factory:
+        class: byrokrat\id\PersonalIdFactory
+
+    jgi.coordination_id_factory:
+        class: byrokrat\id\CoordinationIdFactory
+
+    jgi.organization_id_factory:
+        class: byrokrat\id\OrganizationIdFactory
+
+    jgi.identity_number.validator:
+        class: JGI\IdentityNumberValidatorBundle\Validator\Constraints\IdentityNumberValidator
+        arguments:
+            - '@jgi.personal_id_factory'
+            - '@jgi.coordination_id_factory'
+        tags:
+            - { name: validator.constraint_validator }
+
+    jgi.organization_number.validator:
+        class: JGI\IdentityNumberValidatorBundle\Validator\Constraints\OrganizationNumberValidator
+        arguments:
+            - '@jgi.organization_id_factory'
+        tags:
+            - { name: validator.constraint_validator }
