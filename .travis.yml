@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 7.0
+  - 7.1
+  - 7.2
+
+sudo: false
+
+before_script:
+  - composer self-update
+  - composer install --dev --no-interaction --prefer-source
+
+script:
+  - vendor/phpunit/phpunit/phpunit
+
+notifications:
+  email:
+    - "jon@jon.se"
