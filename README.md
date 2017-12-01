@@ -1,5 +1,7 @@
 # IdentityNumberValidatorBundle
 
+[![Build Status](https://img.shields.io/travis/jongotlin/IdentityNumberValidatorBundle/master.svg)](https://travis-ci.org/jongotlin/IdentityNumberValidatorBundle)
+
 This Symfony Bundle uses [github.com/byrokrat/id](https://github.com/byrokrat/id) to validate swedish identity number (personnummer), coordination number (samordningsnummer) and organization number (organisationsnummer).
 
 ## Install
