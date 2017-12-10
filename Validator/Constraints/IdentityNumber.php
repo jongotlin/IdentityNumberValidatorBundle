@@ -28,4 +28,12 @@ class IdentityNumber extends Constraint
      * @var bool
      */
     public $strict = false;
+
+    /**
+     * @return string
+     */
+    public function validatedBy()
+    {
+        return 'jgi.validator.identity_number';
+    }
 }
