@@ -33,7 +33,7 @@ class OrganizationNumberValidatorTest extends ConstraintValidatorTestCase
     public function invalidOrganizationNumberIsInvalid()
     {
         $organizationIdFactoryMock = $this->createMock(OrganizationIdFactory::class);
-        $organizationIdFactoryMock->expects($this->once())->method('create')
+        $organizationIdFactoryMock->expects($this->once())->method('createId')
             ->willThrowException(new class extends \Exception implements Exception {});
         $this->validator = new OrganizationNumberValidator($organizationIdFactoryMock);
         $this->validator->initialize($this->context);

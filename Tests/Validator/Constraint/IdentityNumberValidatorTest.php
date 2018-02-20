@@ -37,7 +37,7 @@ class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
     public function invalidSocialSecurityNumberIsInvalid()
     {
         $personalIdFactoryMock = $this->createMock(PersonalIdFactory::class);
-        $personalIdFactoryMock->expects($this->once())->method('create')
+        $personalIdFactoryMock->expects($this->once())->method('createId')
             ->willThrowException(new class extends \Exception implements Exception {});
         $this->validator = new IdentityNumberValidator(
             $personalIdFactoryMock,
@@ -58,10 +58,10 @@ class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
     public function invalidCoordinationNumberIsInvalid()
     {
         $personalIdFactoryMock = $this->createMock(PersonalIdFactory::class);
-        $personalIdFactoryMock->expects($this->once())->method('create')
+        $personalIdFactoryMock->expects($this->once())->method('createId')
             ->willThrowException(new class extends \Exception implements Exception {});
         $coordinationIdFactoryMock = $this->createMock(CoordinationIdFactory::class);
-        $coordinationIdFactoryMock->expects($this->once())->method('create')
+        $coordinationIdFactoryMock->expects($this->once())->method('createId')
             ->willThrowException(new class extends \Exception implements Exception {});
         $this->validator = new IdentityNumberValidator(
             $personalIdFactoryMock,
@@ -91,10 +91,10 @@ class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
     public function coordinationNumberWithoutAllowConfigIsInvalid()
     {
         $personalIdFactoryMock = $this->createMock(PersonalIdFactory::class);
-        $personalIdFactoryMock->expects($this->once())->method('create')
+        $personalIdFactoryMock->expects($this->once())->method('createId')
             ->willThrowException(new class extends \Exception implements Exception {});
         $coordinationIdFactoryMock = $this->createMock(CoordinationIdFactory::class);
-        $coordinationIdFactoryMock->expects($this->never())->method('create');
+        $coordinationIdFactoryMock->expects($this->never())->method('createId');
         $this->validator = new IdentityNumberValidator(
             $personalIdFactoryMock,
             $coordinationIdFactoryMock
