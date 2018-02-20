@@ -42,7 +42,7 @@ class OrganizationNumberValidator extends ConstraintValidator
         }
 
         try {
-            $this->factory->create($value);
+            $this->factory->createId($value);
         } catch (Exception $e) {
             $this->context->addViolation($constraint->message);
         }

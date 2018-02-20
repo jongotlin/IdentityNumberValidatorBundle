@@ -55,14 +55,14 @@ class IdentityNumberValidator extends ConstraintValidator
 
         if ($constraint->allowCoordinationNumber) {
             try {
-                $this->coordinationIdFactory->create($value);
+                $this->coordinationIdFactory->createId($value);
 
                 return;
             } catch (Exception $e) {}
         }
 
         try {
-            $this->personalIdFactory->create($value);
+            $this->personalIdFactory->createId($value);
         } catch (Exception $e) {
             $this->context->addViolation($message);
         }
