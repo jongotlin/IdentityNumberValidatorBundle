@@ -20,6 +20,16 @@ class OrganizationNumber extends Constraint
     public $strict = false;
 
     /**
+     * @var bool
+     */
+    public $allowPersonalIdNumber = false;
+
+    /**
+     * @var bool
+     */
+    public $allowCoordinationNumber = false;
+
+    /**
      * @return string
      */
     public function validatedBy()

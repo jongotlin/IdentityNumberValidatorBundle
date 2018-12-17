@@ -20,5 +20,7 @@ services:
         class: JGI\IdentityNumberValidatorBundle\Validator\Constraints\OrganizationNumberValidator
         arguments:
             - '@jgi.organization_id_factory'
+            - '@jgi.personal_id_factory'
+            - '@jgi.coordination_id_factory'
         tags:
             - { name: validator.constraint_validator, alias: jgi.validator.organization_number }

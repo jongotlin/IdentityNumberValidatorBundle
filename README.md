@@ -35,11 +35,12 @@ use JGI\IdentityNumberValidatorBundle\Validator\Constraints as IdentityNumberAss
 private $identityNumber;
 
 /**
- * @IdentityNumberAssert\OrganizationNumber
+ * @IdentityNumberAssert\OrganizationNumber(allowPersonalIdNumber=true, allowCoordinationNumber=true)
  */
 private $organizationNumber;
 ```
 
 Available options are
  - `allowCoordinationNumber` When set to true coordination number (samordningsnummer) is accepted. Default is false.
+ - `allowPersonalIdNumber` When set to true personal identity number is accepted as organization number. Default is false.
  - `strict` When set to true identity number must be exactly 12 digits and organization number 10 digits. No hyphen is accepted. If false identity number can be either 10 or 12 digits and with or without hyphen (or plus sign). Default is false.
