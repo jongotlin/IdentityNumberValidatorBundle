@@ -4,35 +4,26 @@ namespace JGI\IdentityNumberValidatorBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute]
 class OrganizationNumber extends Constraint
 {
-    /**
-     * @var string
-     */
-    public $message = 'This value is not a valid organization number.';
+    public string $message = 'This value is not a valid organization number.';
 
-    /**
-     * @var bool
-     */
-    public $strict = false;
+    public bool $strict = false;
 
-    /**
-     * @var bool
-     */
-    public $allowPersonalIdNumber = false;
+    public bool $allowPersonalIdNumber = false;
 
-    /**
-     * @var bool
-     */
-    public $allowCoordinationNumber = false;
+    public bool $allowCoordinationNumber = false;
 
-    /**
-     * @return string
-     */
-    public function validatedBy()
+    public function __construct(?string $message = null, ?bool $strict = null, ?bool $allowPersonalIdNumber = null, ?bool $allowCoordinationNumber = null)
+    {
+        $this->message = $message ?? $this->message;
+        $this->strict = $strict ?? $this->strict;
+        $this->allowPersonalIdNumber = $allowPersonalIdNumber ?? $this->allowPersonalIdNumber;
+        $this->allowCoordinationNumber = $allowCoordinationNumber ?? $this->allowCoordinationNumber;
+    }
+
+    public function validatedBy(): string
     {
         return 'jgi.validator.organization_number';
     }

@@ -12,32 +12,15 @@ Via Composer
 $ composer require jongotlin/identity-number-bundle
 ```
 
-```php
-class AppKernel extends Kernel
-{
-  public function registerBundles()
-  {
-    $bundles = array(
-        // ...
-        new JGI\IdentityNumberValidatorBundle\IdentityNumberValidatorBundle(),
-    }
-  }
-}
-```
-
 ## Usage
 ```php
 use JGI\IdentityNumberValidatorBundle\Validator\Constraints as IdentityNumberAssert;
 
-/**
- * @IdentityNumberAssert\IdentityNumber(allowCoordinationNumber=true)
- */
-private $identityNumber;
+#[IdentityNumberAssert\IdentityNumber(allowCoordinationNumber=true)]
+private ?string $identityNumber;
 
-/**
- * @IdentityNumberAssert\OrganizationNumber(allowPersonalIdNumber=true, allowCoordinationNumber=true)
- */
-private $organizationNumber;
+#[IdentityNumberAssert\OrganizationNumber(allowPersonalIdNumber=true, allowCoordinationNumber=true)]
+private ?string $organizationNumber;
 ```
 
 Available options are

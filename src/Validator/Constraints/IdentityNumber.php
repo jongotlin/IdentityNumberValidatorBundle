@@ -4,35 +4,26 @@ namespace JGI\IdentityNumberValidatorBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute]
 class IdentityNumber extends Constraint
 {
-    /**
-     * @var string
-     */
-    public $message = 'This value is not a valid identity number.';
+    public string $message = 'This value is not a valid identity number.';
 
-    /**
-     * @var string
-     */
-    public $messageWithCoordinationNumber = 'This value is not a valid identity number or coordination number.';
+    public string $messageWithCoordinationNumber = 'This value is not a valid identity number or coordination number.';
 
-    /**
-     * @var bool
-     */
-    public $allowCoordinationNumber = false;
+    public bool $allowCoordinationNumber = false;
 
-    /**
-     * @var bool
-     */
-    public $strict = false;
+    public bool $strict = false;
 
-    /**
-     * @return string
-     */
-    public function validatedBy()
+    public function __construct(?string $message = null, ?string $messageWithCoordinationNumber = null, ?bool $allowCoordinationNumber = null, ?bool $strict = null)
+    {
+        $this->message = $message ?? $this->message;
+        $this->messageWithCoordinationNumber = $messageWithCoordinationNumber ?? $this->messageWithCoordinationNumber;
+        $this->allowCoordinationNumber = $allowCoordinationNumber ?? $this->allowCoordinationNumber;
+        $this->strict = $strict ?? $this->strict;
+    }
+
+    public function validatedBy(): string
     {
         return 'jgi.validator.identity_number';
     }

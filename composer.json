@@ -19,12 +19,12 @@
     }
   },
   "require": {
-    "php": "^7.0|^8.0",
-    "symfony/framework-bundle": "^2.7|^3.0|^4.0|^5.0|^6.0",
-    "byrokrat/id": "^1.0"
+    "php": "^8.2",
+    "symfony/framework-bundle": "^7.0|^8.0",
+    "byrokrat/id": "^2.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.5",
-    "symfony/validator": "^6.0"
+    "phpunit/phpunit": "^12.5",
+    "symfony/validator": "^8.0"
   }
 }

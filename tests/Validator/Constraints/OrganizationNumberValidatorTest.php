@@ -5,31 +5,26 @@ namespace JGI\IdentityNumberValidatorBundle\Tests\Validator\Constraints;
 use byrokrat\id\OrganizationIdFactory;
 use JGI\IdentityNumberValidatorBundle\Validator\Constraints\OrganizationNumber;
 use JGI\IdentityNumberValidatorBundle\Validator\Constraints\OrganizationNumberValidator;
+use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use byrokrat\id\Exception;
 
 class OrganizationNumberValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @return OrganizationNumberValidator
-     */
-    protected function createValidator()
+    protected function createValidator(): ConstraintValidatorInterface
     {
         return new OrganizationNumberValidator($this->createMock(OrganizationIdFactory::class));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function organizationNumberIsValid()
     {
         $this->validator->validate('-', new OrganizationNumber());
         $this->assertNoViolation();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function invalidOrganizationNumberIsInvalid()
     {
         $organizationIdFactoryMock = $this->createMock(OrganizationIdFactory::class);
@@ -45,27 +40,23 @@ class OrganizationNumberValidatorTest extends ConstraintValidatorTestCase
         ;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function strictOrganizationNumberIsValid()
     {
         $this->validator = new OrganizationNumberValidator($this->createMock(OrganizationIdFactory::class));
         $this->validator->initialize($this->context);
 
-        $this->validator->validate('5569209900', new OrganizationNumber(['strict' => true]));
+        $this->validator->validate('5569209900', new OrganizationNumber(strict: true));
         $this->assertNoViolation();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function nonStrictOrganizationNumberIsInvalid()
     {
         $this->validator = new OrganizationNumberValidator($this->createMock(OrganizationIdFactory::class));
         $this->validator->initialize($this->context);
 
-        $this->validator->validate('556920-9900', new OrganizationNumber(['strict' => true]));
+        $this->validator->validate('556920-9900', new OrganizationNumber(strict: true));
         $this
             ->buildViolation('This value is not a valid organization number.')
             ->assertRaised()
