@@ -1,0 +1,27 @@
+on: [ pull_request ]
+name: Static analysis
+
+jobs:
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          coverage: none
+          tools: cs2pr
+
+      - name: Download dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Display PHP-CS-Fixer version
+        run: sleep 1 && ./vendor/bin/php-cs-fixer --version
+
+      - name: PHP-CS-Fixer
+        run: ./vendor/bin/php-cs-fixer fix --dry-run --format=checkstyle | cs2pr

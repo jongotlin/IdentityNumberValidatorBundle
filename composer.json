@@ -24,6 +24,7 @@
     "byrokrat/id": "^2.1"
   },
   "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.95.2",
     "phpunit/phpunit": "^12.5",
     "symfony/validator": "^8.0",
     "vimeo/psalm": "^6.16"
