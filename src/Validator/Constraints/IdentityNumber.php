@@ -21,6 +21,8 @@ class IdentityNumber extends Constraint
         $this->messageWithCoordinationNumber = $messageWithCoordinationNumber ?? $this->messageWithCoordinationNumber;
         $this->allowCoordinationNumber = $allowCoordinationNumber ?? $this->allowCoordinationNumber;
         $this->strict = $strict ?? $this->strict;
+
+        parent::__construct();
     }
 
     public function validatedBy(): string

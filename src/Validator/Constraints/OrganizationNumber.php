@@ -21,6 +21,8 @@ class OrganizationNumber extends Constraint
         $this->strict = $strict ?? $this->strict;
         $this->allowPersonalIdNumber = $allowPersonalIdNumber ?? $this->allowPersonalIdNumber;
         $this->allowCoordinationNumber = $allowCoordinationNumber ?? $this->allowCoordinationNumber;
+
+        parent::__construct();
     }
 
     public function validatedBy(): string
