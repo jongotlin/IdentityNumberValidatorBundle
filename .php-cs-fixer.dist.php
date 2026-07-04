@@ -16,7 +16,6 @@ return (new PhpCsFixer\Config())
         'phpdoc_separation' => false,
         'trailing_comma_in_multiline' => ['elements' => ['array_destructuring', 'arrays', 'match']],
         'nullable_type_declaration_for_default_null_value' => false,
-        'declare_strict_types' => true,
     ])
     ->setFinder($finder)
 ;
