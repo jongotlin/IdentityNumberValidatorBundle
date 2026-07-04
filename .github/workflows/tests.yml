@@ -1,0 +1,23 @@
+name: Tests
+on: [ pull_request ]
+
+jobs:
+  unit:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          coverage: none
+
+      - name: Download dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: PHPUnit (unit tests)
+        run: ./vendor/bin/phpunit

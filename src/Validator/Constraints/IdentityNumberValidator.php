@@ -7,37 +7,22 @@ use byrokrat\id\Exception;
 use byrokrat\id\PersonalIdFactory;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class IdentityNumberValidator extends ConstraintValidator
 {
-    /**
-     * @var PersonalIdFactory
-     */
-    protected $personalIdFactory;
-
-    /**
-     * @var CoordinationIdFactory
-     */
-    protected $coordinationIdFactory;
-
-    /**
-     * @param PersonalIdFactory $personalIdFactory
-     * @param CoordinationIdFactory $coordinationIdFactory
-     */
-    public function __construct(PersonalIdFactory $personalIdFactory, CoordinationIdFactory $coordinationIdFactory)
-    {
-        $this->personalIdFactory = $personalIdFactory;
-        $this->coordinationIdFactory = $coordinationIdFactory;
+    public function __construct(
+        private readonly PersonalIdFactory $personalIdFactory,
+        private readonly CoordinationIdFactory $coordinationIdFactory
+    ) {
     }
 
-    /**
-     * @param mixed $value
-     * @param Constraint|IdentityNumber $constraint
-     *
-     * @return void
-     */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
+        if (!$constraint instanceof IdentityNumber) {
+            throw new UnexpectedTypeException($constraint, IdentityNumber::class);
+        }
+
         if (null === $value || '' === $value) {
             return;
         }

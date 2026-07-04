@@ -6,15 +6,14 @@ use byrokrat\id\CoordinationIdFactory;
 use byrokrat\id\PersonalIdFactory;
 use JGI\IdentityNumberValidatorBundle\Validator\Constraints\IdentityNumber;
 use JGI\IdentityNumberValidatorBundle\Validator\Constraints\IdentityNumberValidator;
+use PHPUnit\Framework\Attributes\Test;
+use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use byrokrat\id\Exception;
 
 class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
 {
-    /**
-     * @return IdentityNumberValidator
-     */
-    protected function createValidator()
+    protected function createValidator(): ConstraintValidatorInterface
     {
         return new IdentityNumberValidator(
             $this->createMock(PersonalIdFactory::class),
@@ -22,18 +21,14 @@ class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function socialSecurityNumberIsValid()
     {
         $this->validator->validate('-', new IdentityNumber());
         $this->assertNoViolation();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function invalidSocialSecurityNumberIsInvalid()
     {
         $personalIdFactoryMock = $this->createMock(PersonalIdFactory::class);
@@ -52,9 +47,7 @@ class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
         ;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function invalidCoordinationNumberIsInvalid()
     {
         $personalIdFactoryMock = $this->createMock(PersonalIdFactory::class);
@@ -69,25 +62,21 @@ class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
         );
         $this->validator->initialize($this->context);
 
-        $this->validator->validate('-', new IdentityNumber(['allowCoordinationNumber' => true]));
+        $this->validator->validate('-', new IdentityNumber(allowCoordinationNumber: true));
         $this
             ->buildViolation('This value is not a valid identity number or coordination number.')
             ->assertRaised()
         ;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function coordinationNumberIsValid()
     {
-        $this->validator->validate('-', new IdentityNumber(['allowCoordinationNumber' => true]));
+        $this->validator->validate('-', new IdentityNumber(allowCoordinationNumber: true));
         $this->assertNoViolation();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function coordinationNumberWithoutAllowConfigIsInvalid()
     {
         $personalIdFactoryMock = $this->createMock(PersonalIdFactory::class);
@@ -108,9 +97,7 @@ class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
         ;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function strictSocialSecurityNumberIsValid()
     {
         $this->validator = new IdentityNumberValidator(
@@ -119,13 +106,11 @@ class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
         );
         $this->validator->initialize($this->context);
 
-        $this->validator->validate('195605158616', new IdentityNumber(['strict' => true]));
+        $this->validator->validate('195605158616', new IdentityNumber(strict: true));
         $this->assertNoViolation();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function nonStrictSocialSecurityNumberIsInvalid()
     {
         $this->validator = new IdentityNumberValidator(
@@ -134,7 +119,7 @@ class IdentityNumberValidatorTest extends ConstraintValidatorTestCase
         );
         $this->validator->initialize($this->context);
 
-        $this->validator->validate('560515-8616', new IdentityNumber(['strict' => true]));
+        $this->validator->validate('560515-8616', new IdentityNumber(strict: true));
         $this
             ->buildViolation('This value is not a valid identity number.')
             ->assertRaised()

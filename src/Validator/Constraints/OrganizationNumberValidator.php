@@ -8,46 +8,23 @@ use byrokrat\id\Exception;
 use byrokrat\id\PersonalIdFactory;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class OrganizationNumberValidator extends ConstraintValidator
 {
-    /**
-     * @var OrganizationIdFactory
-     */
-    protected $organizationIdFactory;
-
-    /**
-     * @var PersonalIdFactory|null
-     */
-    protected $personalIdFactory;
-
-    /**
-     * @var CoordinationIdFactory|null
-     */
-    protected $coordinationIdFactory;
-
-    /**
-     * @param OrganizationIdFactory $factory
-     */
     public function __construct(
-        OrganizationIdFactory $organizationIdFactory,
-        PersonalIdFactory $personalIdFactory = null,
-        CoordinationIdFactory $coordinationIdFactory = null
-    )
-    {
-        $this->organizationIdFactory = $organizationIdFactory;
-        $this->personalIdFactory = $personalIdFactory;
-        $this->coordinationIdFactory = $coordinationIdFactory;
+        private readonly OrganizationIdFactory $organizationIdFactory,
+        private readonly ?PersonalIdFactory $personalIdFactory = null,
+        private readonly ?CoordinationIdFactory $coordinationIdFactory = null
+    ) {
     }
 
-    /**
-     * @param mixed $value
-     * @param Constraint|OrganizationNumber $constraint
-     *
-     * @return void
-     */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
+        if (!$constraint instanceof OrganizationNumber) {
+            throw new UnexpectedTypeException($constraint, OrganizationNumber::class);
+        }
+
         if (null === $value || '' === $value) {
             return;
         }
