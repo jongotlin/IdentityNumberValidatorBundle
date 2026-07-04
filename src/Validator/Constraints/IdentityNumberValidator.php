@@ -43,12 +43,12 @@ class IdentityNumberValidator extends ConstraintValidator
                 $this->coordinationIdFactory->createId($value);
 
                 return;
-            } catch (Exception $e) {}
+            } catch (\Exception $e) {}
         }
 
         try {
             $this->personalIdFactory->createId($value);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->context->addViolation($message);
         }
     }

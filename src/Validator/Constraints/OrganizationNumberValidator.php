@@ -44,7 +44,7 @@ class OrganizationNumberValidator extends ConstraintValidator
                 $this->personalIdFactory->createId($value);
 
                 return;
-            } catch (Exception $e) {}
+            } catch (\Exception $e) {}
         }
 
         if ($constraint->allowCoordinationNumber) {
@@ -55,12 +55,12 @@ class OrganizationNumberValidator extends ConstraintValidator
                 $this->coordinationIdFactory->createId($value);
 
                 return;
-            } catch (Exception $e) {}
+            } catch (\Exception $e) {}
         }
 
         try {
             $this->organizationIdFactory->createId($value);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->context->addViolation($constraint->message);
         }
     }

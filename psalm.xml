@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="3"
+    findUnusedCode="false"
+>
+    <issueHandlers>
+        <MissingOverrideAttribute errorLevel="suppress" />
+    </issueHandlers>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+</psalm>
