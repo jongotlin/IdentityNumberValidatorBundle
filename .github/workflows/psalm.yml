@@ -1,0 +1,22 @@
+on: [ pull_request ]
+name: Static analysis
+
+jobs:
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          coverage: none
+
+      - name: Download dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Psalm
+        run: vendor/bin/psalm --no-progress --output-format=github
