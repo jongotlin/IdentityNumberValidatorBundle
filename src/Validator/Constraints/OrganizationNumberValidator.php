@@ -4,7 +4,6 @@ namespace JGI\IdentityNumberValidatorBundle\Validator\Constraints;
 
 use byrokrat\id\CoordinationIdFactory;
 use byrokrat\id\OrganizationIdFactory;
-use byrokrat\id\Exception;
 use byrokrat\id\PersonalIdFactory;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -30,8 +29,9 @@ class OrganizationNumberValidator extends ConstraintValidator
         }
 
         if ($constraint->strict) {
-            if (!preg_match("/^\d{10}$/", $value) ) {
+            if (!preg_match("/^\d{10}$/", $value)) {
                 $this->context->addViolation($constraint->message);
+
                 return;
             }
         }
@@ -44,7 +44,8 @@ class OrganizationNumberValidator extends ConstraintValidator
                 $this->personalIdFactory->createId($value);
 
                 return;
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
         }
 
         if ($constraint->allowCoordinationNumber) {
@@ -55,7 +56,8 @@ class OrganizationNumberValidator extends ConstraintValidator
                 $this->coordinationIdFactory->createId($value);
 
                 return;
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
         }
 
         try {

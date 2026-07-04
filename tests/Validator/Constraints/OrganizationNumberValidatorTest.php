@@ -2,13 +2,13 @@
 
 namespace JGI\IdentityNumberValidatorBundle\Tests\Validator\Constraints;
 
+use byrokrat\id\Exception;
 use byrokrat\id\OrganizationIdFactory;
 use JGI\IdentityNumberValidatorBundle\Validator\Constraints\OrganizationNumber;
 use JGI\IdentityNumberValidatorBundle\Validator\Constraints\OrganizationNumberValidator;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
-use byrokrat\id\Exception;
 
 class OrganizationNumberValidatorTest extends ConstraintValidatorTestCase
 {

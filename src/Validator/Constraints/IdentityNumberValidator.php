@@ -3,7 +3,6 @@
 namespace JGI\IdentityNumberValidatorBundle\Validator\Constraints;
 
 use byrokrat\id\CoordinationIdFactory;
-use byrokrat\id\Exception;
 use byrokrat\id\PersonalIdFactory;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -32,8 +31,9 @@ class IdentityNumberValidator extends ConstraintValidator
             : $constraint->message;
 
         if ($constraint->strict) {
-            if (!preg_match("/^\d{12}$/", $value) ) {
+            if (!preg_match("/^\d{12}$/", $value)) {
                 $this->context->addViolation($message);
+
                 return;
             }
         }
@@ -43,7 +43,8 @@ class IdentityNumberValidator extends ConstraintValidator
                 $this->coordinationIdFactory->createId($value);
 
                 return;
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
         }
 
         try {
